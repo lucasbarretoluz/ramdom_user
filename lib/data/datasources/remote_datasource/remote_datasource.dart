@@ -9,7 +9,9 @@ class RemoteDataSource {
   RemoteDataSource(this.client);
 
   Future<UserResponseModel> getUsers() async {
-    Uri url = Uri.parse(Api.apiUrl);
+    String gender = "";
+    String urlPart = '?page=1&results=15&gender=$gender&nat=BR';
+    Uri url = Uri.parse(Api.apiUrl + urlPart);
 
     try {
       http.Response response = await client.get(

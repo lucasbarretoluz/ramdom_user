@@ -16,8 +16,10 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
-  http: ^0.13.5
-  equatable: ^2.0.5
+  http: 0.13.5
+  equatable: 2.0.5
+  flutter_riverpod: 2.0.0-dev.9
+  infinite_scroll_pagination: 3.2.0
   
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-abstract class BaseUseCase<Type, Params> {
-  Type execute(Params params);
+abstract class BaseUseCase<Type> {
+  Type execute();
   const BaseUseCase();
 }
