@@ -71,7 +71,7 @@ class _AllUsersWidgetState extends ConsumerState<AllUsersWidget> {
                 trailing: IconButton(
                     onPressed: (() {
                       Navigator.of(context)
-                          .pushNamed('/userDetail', arguments: user);
+                          .pushNamed('/userDetail', arguments: {'userDetail': user});
                     }),
                     icon: const Icon(Icons.arrow_circle_right)),
               )),

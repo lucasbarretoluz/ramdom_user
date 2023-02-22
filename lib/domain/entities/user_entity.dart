@@ -5,7 +5,6 @@ import 'location_entity.dart';
 import 'name_entity.dart';
 
 class UserEntity extends Equatable {
-  // final String id;
   final NameEntity name;
   final LocationEntity location;
   final String email;
@@ -15,7 +14,6 @@ class UserEntity extends Equatable {
   final String nat;
 
   const UserEntity({
-    // required this.id,
     required this.name,
     required this.location,
     required this.email,

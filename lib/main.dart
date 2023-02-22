@@ -22,9 +22,20 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
+      onGenerateRoute: (RouteSettings settings) {
+        if (settings.name == '/userDetail') {
+          final Map<String, dynamic> value =
+              settings.arguments as Map<String, dynamic>; 
+          return MaterialPageRoute(
+            builder: (_) => UserPageDetail(
+              user: value['userDetail'],
+            ),
+          );
+        }
+        return null;
+      },
       routes: {
         '/home': (context) => const HomePage(),
-        '/userDetail':(context) =>  const UserPageDetail(user: null),
       },
     );
   }

@@ -14,9 +14,3 @@ class GetUsers extends BaseUseCase<Future<UserResponseEntity>> {
   }
 }
 
-class Params {
-  final String? gender;
-  const Params(
-    this.gender,
-  );
-}
