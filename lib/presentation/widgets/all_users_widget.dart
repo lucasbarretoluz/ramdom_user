@@ -60,21 +60,21 @@ class _AllUsersWidgetState extends ConsumerState<AllUsersWidget> {
   }
 
   Widget build(BuildContext context) {
-    return PagedGridView<int, UserEntity>(
+    return PagedListView<int, UserEntity>(
       pagingController: _pagingController,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 12,
-        crossAxisCount: 3,
-        mainAxisExtent: 186,
-      ),
       builderDelegate: PagedChildBuilderDelegate<UserEntity>(
-        newPageProgressIndicatorBuilder: (context) =>
-            const Center(child: Text("Carregando...")),
-        firstPageProgressIndicatorBuilder: (context) =>
-            const Center(child: Text("Carregando...")),
-        itemBuilder: (context, user, index) => Text(user.email),
-      ),
+          itemBuilder: (context, user, index) => ListTile(
+                leading:
+                    CircleAvatar(child: Image.network(user.imageUrl.medium)),
+                title: Text('${user.name.first} ${user.name.last}'),
+                subtitle: Text(user.email),
+                trailing: IconButton(
+                    onPressed: (() {
+                      Navigator.of(context)
+                          .pushNamed('/userDetail', arguments: user);
+                    }),
+                    icon: const Icon(Icons.arrow_circle_right)),
+              )),
     );
   }
 }
