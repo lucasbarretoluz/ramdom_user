@@ -9,6 +9,8 @@ final loaderStateProvider = StateProvider<bool>((ref) => false);
 
 final usersListProvider = StateProvider<List<UserEntity>>((ref) => []);
 
+final userGender = StateProvider<String>((ref) => "both");
+
 final homePageControllerProvider =
     Provider.autoDispose<HomeScreenController>((ref) => HomeScreenController(
           ref,

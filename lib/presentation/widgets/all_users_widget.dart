@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ramdom_user/domain/entities/user_entity.dart';
 
 import '../pages/home/home_page_controller.dart';
+import 'user_card_widget.dart';
 
 class AllUsersWidget extends ConsumerStatefulWidget {
   const AllUsersWidget({Key? key}) : super(key: key);
@@ -13,13 +14,15 @@ class AllUsersWidget extends ConsumerStatefulWidget {
 }
 
 class _AllUsersWidgetState extends ConsumerState<AllUsersWidget> {
-  PagingController<int, UserEntity> _pagingController =
+  final PagingController<int, UserEntity> _pagingController =
       PagingController<int, UserEntity>(firstPageKey: 0);
 
   int pageLimit = 10;
+  late String showGender;
 
   @override
   void initState() {
+    showGender = ref.read(userGender.notifier).state;
     init();
     super.initState();
   }
@@ -59,22 +62,48 @@ class _AllUsersWidgetState extends ConsumerState<AllUsersWidget> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
-    return PagedListView<int, UserEntity>(
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<UserEntity>(
-          itemBuilder: (context, user, index) => ListTile(
-                leading:
-                    CircleAvatar(child: Image.network(user.imageUrl.medium)),
-                title: Text('${user.name.first} ${user.name.last}'),
-                subtitle: Text(user.email),
-                trailing: IconButton(
-                    onPressed: (() {
-                      Navigator.of(context)
-                          .pushNamed('/userDetail', arguments: {'userDetail': user});
-                    }),
-                    icon: const Icon(Icons.arrow_circle_right)),
-              )),
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  ref.read(userGender.notifier).state = "female";
+                  showGender = ref.read(userGender.notifier).state;
+                  _pagingController.notifyListeners();
+                },
+                child: const Text("Female")),
+            ElevatedButton(
+                onPressed: () {
+                  ref.read(userGender.notifier).state = "both";
+                  showGender = ref.read(userGender.notifier).state;
+                  _pagingController.notifyListeners();
+                },
+                child: const Text("Both")),
+            ElevatedButton(
+                onPressed: () {
+                  ref.read(userGender.notifier).state = "male";
+                  showGender = ref.read(userGender.notifier).state;
+                  _pagingController.notifyListeners();
+                },
+                child: const Text("Male"))
+          ],
+        ),
+        Expanded(
+          child: PagedListView<int, UserEntity>(
+            pagingController: _pagingController,
+            builderDelegate: PagedChildBuilderDelegate<UserEntity>(
+              itemBuilder: (context, user, index) => UserCard(
+                userGender: showGender,
+                user: user,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
